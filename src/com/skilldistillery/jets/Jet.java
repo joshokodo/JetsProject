@@ -102,5 +102,7 @@ public abstract class Jet {
 	public double getSpeedInMach() {
 		return 0.0;
 	}
+	
+	
 
 }
