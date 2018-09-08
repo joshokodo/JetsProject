@@ -22,7 +22,7 @@ public abstract class Jet {
 	// toString
 	@Override
 	public String toString() {
-		return "Jet [model=" + model + ", speed=" + speed + ", range=" + range + ", price=" + price + "]";
+		return " [model: " + model + ", speed: " + speed + ", range: " + range + ", price: " + price + "]";
 	}
 
 	// equals and hashcode
@@ -97,12 +97,14 @@ public abstract class Jet {
 
 	// other methods
 	public void fly() {
+		double hours = range / speed;
+		System.out.println(this.toString());
+		System.out.printf("Hours til' out of fuel: %.2f%n", hours);
+		
 	}
 
 	public double getSpeedInMach() {
 		return 0.0;
 	}
-	
-	
 
 }
