@@ -13,6 +13,12 @@ public class JetsApplication {
 									   + "????????????????????????\n"
 									   + " Choose option from menu: ";
 	
+	private final String CUSTOM_PLANE_MENU =  "$$$$$$$$$$$$$$$$$$$$$$$$\n" 
+											+ "$  1. Fighter Jet      $\n"
+											+ "$  2. Cargo Plane      $\n"
+											+ "$  3. Cancel           $\n"
+											+ "$$$$$$$$$$$$$$$$$$$$$$$$\n"
+											+ " Choose type of Plane to build: ";
 	
 	private AirField fleet;
 	private Scanner keyboard;
@@ -33,38 +39,28 @@ public class JetsApplication {
 		fleet.addJet(new FighterJet("A -10", 425.0, 2000, 125_000_000));
 		fleet.addJet(new CargoPlane("AN-225", 200.0, 4000, 9_700_000));
 		fleet.addJet(new CargoPlane("AN-124", 250.0, 5000, 25_000_000));
+
 	}
 
-	// other methods
+	// launch app method
 	private void launch() {
 		int choice = 0;
-		// TODO decide if using days or not
-		// int dayCounter = 1;
 
 		while (true) {
-			// System.out.println("Day " + dayCounter);
 			choice = getUserChoice(getUserMenu(), 9);
 			System.out.println();
 			performOption(choice);
 
 			choice = getUserChoice(CONTINUE_MENU, 2);
 			continueLoop(choice);
-			// dayCounter++;
 
 		}
 	}
 
-	private void continueLoop(int choice) {
-
-		if (choice == 1) {
-			return;
-		} else {
-			endProgram();
-		}
-	}
+	// other methods
 
 	// alternate version of displayUserMenu that returns a string of menu
-	// use as para. for getUserChoice method
+	// use as arg for getUserChoice method
 	private String getUserMenu() {
 		String returnValue = MENU_BORDER;
 		returnValue += SPACE;
@@ -92,13 +88,27 @@ public class JetsApplication {
 		return returnValue;
 	}
 
+	// called after each option choice to see the effect
+	// of user's choice. either returns you back to main menu
+	// or closes app
+	private void continueLoop(int choice) {
+
+		if (choice == 1) {
+			return;
+		} else {
+			endProgram();
+		}
+	}
+
 	// returns a formatted menu option line
 	private String getMenuOption(String option) {
 		String returnValue = String.format("* %-37s*%n", option);
 		return returnValue;
 	}
 
-	private int getUserChoice(String prompt, int lastOption) {
+	// prompts users with custom menu(arg 1) of choices 
+	// between a custom range(arg 2) returns choice in the form of an int
+	private int getUserChoice(String prompt, int optionRange) {
 		int choice = 0;
 		boolean validChoice = false;
 
@@ -106,17 +116,9 @@ public class JetsApplication {
 			System.out.println();
 
 			System.out.print(prompt);
-			String stringChoice = keyboard.next();
-			keyboard.nextLine(); // to get rid of any trailing texts
+			choice = getIntInput();
 
-			try {
-				choice = Integer.parseInt(stringChoice);
-			} catch (NumberFormatException e) {
-				System.out.println(" Not a numeric choice. try again.");
-				continue;
-			}
-
-			validChoice = choice >= 1 && choice <= lastOption; // resets loop condition
+			validChoice = choice >= 1 && choice <= optionRange; // resets loop condition
 
 			if (!validChoice) {
 				System.out.println(" Not an available option. try again.");
@@ -124,13 +126,61 @@ public class JetsApplication {
 			} else {
 				break;
 			}
-
 		}
 
 		return choice;
 
 	}
 
+	// prompts user for what type of jet to build
+	// then asks for all of its fields, builds the
+	// specified jet object and adds it to fleet.
+	private void addCustomPlane() {
+
+		if (hangerFull()) {
+			System.out.println("Can't add jet. Hanger full");
+			return;
+		}
+
+		int choice = getUserChoice(CUSTOM_PLANE_MENU, 3);
+
+		if (choice == 3) {
+			return;
+		}
+		System.out.print(" Enter Model: ");
+		String model = getStringInput();
+
+		System.out.print(" Enter Speed: ");
+		double speed = getDoubleInput();
+
+		System.out.print(" Enter Range: ");
+		int range = getIntInput();
+
+		System.out.print(" Enter Price: ");
+		long price = getLongInput();
+
+		if (choice == 2) {
+			fleet.addJet(new CargoPlane(model, speed, range, price));
+		} else if (choice == 1) {
+			fleet.addJet(new FighterJet(model, speed, range, price));
+		}
+		System.out.println("\nPlane added to Fleet.");
+
+	}
+
+	// helper method that checks if airfield is maxed out
+	// on jet objects
+	private boolean hangerFull() {
+		for (Jet jet : fleet.getJets()) {
+			if (jet == null) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	// takes in a choice in the form of an int and performs
+	// the selected option
 	private void performOption(int choice) {
 
 		switch (choice) {
@@ -159,15 +209,15 @@ public class JetsApplication {
 			break;
 
 		case 6:
-			fleet.flyAll();
+
 			break;
 
 		case 7:
-			fleet.flyAll();
+
 			break;
 
 		case 8:
-			fleet.flyAll();
+			addCustomPlane();
 			break;
 
 		case 9:
@@ -180,34 +230,70 @@ public class JetsApplication {
 		}
 	}
 
+	// thanks user for using app, closes scanner and exits the app
 	private void endProgram() {
 		System.out.println("Thanks for using the app. have a great day");
 		keyboard.close();
 		System.exit(0);
 	}
 
-	// created as per instructions
-	/*
-	 * private void displayUserMenu() { System.out.println(MENU_BORDER);
-	 * System.out.println(SPACE);
-	 * System.out.println(getMenuOption("1. List fleet"));
-	 * System.out.println(SPACE);
-	 * System.out.println(getMenuOption("2. Fly all jets"));
-	 * System.out.println(SPACE);
-	 * System.out.println(getMenuOption("3. View fastest jet"));
-	 * System.out.println(SPACE);
-	 * System.out.println(getMenuOption("4. View jet with longest range"));
-	 * System.out.println(SPACE);
-	 * System.out.println(getMenuOption("5. View most expensive jet"));
-	 * System.out.println(SPACE);
-	 * System.out.println(getMenuOption("6. Load all Cargo Jets"));
-	 * System.out.println(SPACE); System.out.println(getMenuOption("7. Dogfight"));
-	 * System.out.println(SPACE);
-	 * System.out.println(getMenuOption("8. Add a jet to Fleet"));
-	 * System.out.println(SPACE); System.out.println(getMenuOption("9. Quit"));
-	 * System.out.println(SPACE); System.out.println(MENU_BORDER);
-	 * 
-	 * }
-	 */
+	// scanner input methods
+	private int getIntInput() {
+		int num = -1;
+
+		while (true) {
+			String stringChoice = keyboard.next();
+			keyboard.nextLine(); // to get rid of any trailing texts
+
+			try {
+				num = Integer.parseInt(stringChoice);
+			} catch (NumberFormatException e) {
+				System.out.println(" Not a numeric choice. try again.");
+				continue;
+			}
+			break;
+		}
+		return num;
+	}
+
+	private String getStringInput() {
+		return keyboard.nextLine();
+	}
+
+	private double getDoubleInput() {
+		double num = -1;
+
+		while (true) {
+			String stringChoice = keyboard.next();
+			keyboard.nextLine(); // to get rid of any trailing texts
+
+			try {
+				num = Double.parseDouble(stringChoice);
+			} catch (NumberFormatException e) {
+				System.out.println(" Not a numeric choice. try again.");
+				continue;
+			}
+			break;
+		}
+		return num;
+	}
+
+	private long getLongInput() {
+		long num = -1;
+
+		while (true) {
+			String stringChoice = keyboard.next();
+			keyboard.nextLine(); // to get rid of any trailing texts
+
+			try {
+				num = Long.parseLong(stringChoice);
+			} catch (NumberFormatException e) {
+				System.out.println(" Not a numeric choice. try again.");
+				continue;
+			}
+			break;
+		}
+		return num;
+	}
 
 }

@@ -22,7 +22,7 @@ public abstract class Jet {
 	// toString
 	@Override
 	public String toString() {
-		return " [model: " + model + ", speed: " + speed + ", range: " + range + ", price: " + price + "]";
+		return " [model: " + model + " speed: " + speed + " range: " + range + " price: " + price + "]";
 	}
 
 	// equals and hashcode
