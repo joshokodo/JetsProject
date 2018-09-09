@@ -2,9 +2,6 @@ package com.skilldistillery.jets;
 
 public class FighterJet extends Jet implements CombatReady {
 
-	private int firePower;
-	
-	
 	// constructors
 	public FighterJet() {
 	}

@@ -7,11 +7,6 @@ public class JetsApplication {
 	// constant strings for menu
 	private final String MENU_BORDER = "****************************************\n";
 	private final String SPACE = "*                                      *\n";
-	private final String CONTINUE_MENU = "????????????????????????\n" 
-									   + "?  1. return to menu   ?\n"
-									   + "?  2. Quit             ?\n"
-									   + "????????????????????????\n"
-									   + " Choose option from menu: ";
 	
 	private final String CUSTOM_JET_MENU =  "$$$$$$$$$$$$$$$$$$$$$$$$\n" 
 											+ "$  1. Fighter Jet      $\n"
