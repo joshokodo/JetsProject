@@ -2,6 +2,9 @@ package com.skilldistillery.jets;
 
 public class FighterJet extends Jet implements CombatReady {
 
+	private int firePower;
+	
+	
 	// constructors
 	public FighterJet() {
 	}
@@ -18,6 +21,8 @@ public class FighterJet extends Jet implements CombatReady {
 
 	// other methods
 	public void fight() {
+		System.out.println("Hi im " + this.toString());
+		System.out.println("Look at me, im fighing and junk at mach " + super.getSpeedInMach());
 
 	}
 

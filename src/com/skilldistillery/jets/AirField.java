@@ -3,13 +3,12 @@ package com.skilldistillery.jets;
 public class AirField {
 
 	private Jet[] jets;
+	
+	// special chars for borders
 	private final char AIRPLANE_CHAR = '\u2708';
-	private final char FUEL_CHAR = '\u26FD';
-	// ascii characters
-	// green check mark \u2705
-	// fuel tank U+26FD
-	// cross swords U+2694
-	// emoji plane taking off
+	private final char PACKAGE_CHAR = '\u2709'; 
+	private final char SWORDS_CHAR = '\u2694';
+	
 
 	// constructors
 	public AirField() {
@@ -45,6 +44,9 @@ public class AirField {
 	}
 
 	// other methods
+	
+	// prints out all jets info and empty slots in the
+	// jets array
 	public void listJets() {
 		int length = jets.length;
 
@@ -61,21 +63,27 @@ public class AirField {
 			} else {
 				System.out.println((i + 1) + ": " + "Empty slot");
 			}
+			System.out.println();
 		}
 		printSpecialBorder(AIRPLANE_CHAR, 40);
 	}
 
+	// calls the fly method for each jet in the jets array
 	public void flyAll() {
-		printSpecialBorder(FUEL_CHAR, 20);
+		printSpecialBorder(AIRPLANE_CHAR, 20);
 		for (Jet jet : jets) {
 
 			if (jet != null) {
 				jet.fly();
+				System.out.println();
 			}
 		}
-		printSpecialBorder(FUEL_CHAR, 20);
+		printSpecialBorder(AIRPLANE_CHAR, 20);
 	}
 
+	// takes in an String arg and looks for the jet
+	// with the highest value of the specified fields
+	// speed, range or price
 	public Jet findCertainJet(String target) {
 		Jet certainJet = null;
 
@@ -114,8 +122,32 @@ public class AirField {
 		}
 		return certainJet;
 	}
+	
+	public void loadAllTheCargo() {
+		printSpecialBorder(PACKAGE_CHAR, 40);
+		for (Jet jet : jets) {
+			if(jet != null && jet.getClass() == new CargoPlane().getClass()) {
+				((CargoCarrier) jet).loadCargo();
+				System.out.println();
+			}
+		}
+		printSpecialBorder(PACKAGE_CHAR, 40);
+	}
+	public void fightAllTheFights() {
+		printSpecialBorder(SWORDS_CHAR, 40);
+		for (Jet jet : jets) {
+			if(jet != null && jet.getClass() == new FighterJet().getClass()) {
+				((FighterJet) jet).fight();
+				System.out.println();
+			}
+		}
+		printSpecialBorder(SWORDS_CHAR, 40);
+	}
 
 	// helper methods
+	
+	// takes in a char for arg 1 and prints it on a line
+	// with spaces between the amount passed for arg 2
 	private void printSpecialBorder(char lining, int length) {
 		String border = "";
 

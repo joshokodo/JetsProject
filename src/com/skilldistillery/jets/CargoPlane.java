@@ -18,7 +18,8 @@ public class CargoPlane extends Jet implements CargoCarrier {
 
 	// other methods
 	public void loadCargo() {
-
+		System.out.println("Hi im " + this.toString());
+		System.out.println("Look at me, im loading cargo and stuff at mach " + super.getSpeedInMach());
 	}
 
 }

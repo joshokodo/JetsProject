@@ -3,7 +3,7 @@ package com.skilldistillery.jets;
 public abstract class Jet {
 
 	private String model;
-	private double speed;
+	private double speed; // mph
 	private int range;
 	private long price;
 
@@ -104,7 +104,7 @@ public abstract class Jet {
 	}
 
 	public double getSpeedInMach() {
-		return 0.0;
+		return speed * 0.001303;
 	}
 
 }

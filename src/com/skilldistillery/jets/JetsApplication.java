@@ -13,7 +13,7 @@ public class JetsApplication {
 									   + "????????????????????????\n"
 									   + " Choose option from menu: ";
 	
-	private final String CUSTOM_PLANE_MENU =  "$$$$$$$$$$$$$$$$$$$$$$$$\n" 
+	private final String CUSTOM_JET_MENU =  "$$$$$$$$$$$$$$$$$$$$$$$$\n" 
 											+ "$  1. Fighter Jet      $\n"
 											+ "$  2. Cargo Plane      $\n"
 											+ "$  3. Cancel           $\n"
@@ -51,9 +51,6 @@ public class JetsApplication {
 			System.out.println();
 			performOption(choice);
 
-			choice = getUserChoice(CONTINUE_MENU, 2);
-			continueLoop(choice);
-
 		}
 	}
 
@@ -88,25 +85,13 @@ public class JetsApplication {
 		return returnValue;
 	}
 
-	// called after each option choice to see the effect
-	// of user's choice. either returns you back to main menu
-	// or closes app
-	private void continueLoop(int choice) {
-
-		if (choice == 1) {
-			return;
-		} else {
-			endProgram();
-		}
-	}
-
 	// returns a formatted menu option line
 	private String getMenuOption(String option) {
 		String returnValue = String.format("* %-37s*%n", option);
 		return returnValue;
 	}
 
-	// prompts users with custom menu(arg 1) of choices 
+	// prompts users with custom menu(arg 1) of choices
 	// between a custom range(arg 2) returns choice in the form of an int
 	private int getUserChoice(String prompt, int optionRange) {
 		int choice = 0;
@@ -135,14 +120,14 @@ public class JetsApplication {
 	// prompts user for what type of jet to build
 	// then asks for all of its fields, builds the
 	// specified jet object and adds it to fleet.
-	private void addCustomPlane() {
+	private void addCustomJet() {
 
 		if (hangerFull()) {
 			System.out.println("Can't add jet. Hanger full");
 			return;
 		}
 
-		int choice = getUserChoice(CUSTOM_PLANE_MENU, 3);
+		int choice = getUserChoice(CUSTOM_JET_MENU, 3);
 
 		if (choice == 3) {
 			return;
@@ -164,7 +149,7 @@ public class JetsApplication {
 		} else if (choice == 1) {
 			fleet.addJet(new FighterJet(model, speed, range, price));
 		}
-		System.out.println("\nPlane added to Fleet.");
+		System.out.println("\nJet added to Fleet.");
 
 	}
 
@@ -209,15 +194,15 @@ public class JetsApplication {
 			break;
 
 		case 6:
-
+			fleet.loadAllTheCargo();
 			break;
 
 		case 7:
-
+			fleet.fightAllTheFights();
 			break;
 
 		case 8:
-			addCustomPlane();
+			addCustomJet();
 			break;
 
 		case 9:
@@ -288,7 +273,7 @@ public class JetsApplication {
 			try {
 				num = Long.parseLong(stringChoice);
 			} catch (NumberFormatException e) {
-				System.out.println(" Not a numeric choice. try again.");
+				System.out.println(" Not a valid choice. try again.");
 				continue;
 			}
 			break;
