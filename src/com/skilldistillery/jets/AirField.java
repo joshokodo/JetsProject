@@ -1,19 +1,9 @@
 package com.skilldistillery.jets;
 
-import com.skilldistillery.jets.game.Damagable;
-
-public class AirField implements Damagable{
+public class AirField {
 
 	private Jet[] jets;
 	private Pilot[] pilots;
-	private int defense;
-	private boolean isDestroyed;
-	
-	{
-		isDestroyed = false;
-		defense = 100;
-	}
-	
 
 	// special chars for borders
 	private final char AIRPLANE_CHAR = '\u2708';
@@ -24,7 +14,7 @@ public class AirField implements Damagable{
 	public AirField() {
 		jets = new Jet[10];
 		pilots = new Pilot[10];
-		
+
 	}
 
 	public AirField(int start) {
@@ -59,14 +49,6 @@ public class AirField implements Damagable{
 		this.jets = jets;
 	}
 
-	public int getDefense() {
-		return defense;
-	}
-
-	public void setDefense(int defense) {
-		this.defense = defense;
-	}
-
 	public Pilot[] getPilots() {
 		return pilots;
 	}
@@ -75,9 +57,6 @@ public class AirField implements Damagable{
 		this.pilots = pilots;
 	}
 
-	
-
-	
 	// other methods
 	public void addJet(Jet jet) {
 
@@ -99,7 +78,7 @@ public class AirField implements Damagable{
 			}
 		}
 	}
-	
+
 	// prints out all jets info and empty slots in the
 	// jets array
 	public void listJets() {
@@ -136,43 +115,41 @@ public class AirField implements Damagable{
 		printSpecialBorder(AIRPLANE_CHAR, 20);
 	}
 
-	// takes in an String arg and looks for the jet
-	// with the highest value of the specified fields
-	// speed, range or price
-	public Jet findCertainJet(String target) {
+	//
+	public Jet findFastestJet() {
 		Jet certainJet = null;
+		double fastestSpeed = 0;
+		for (Jet jet : jets) {
 
-		if (target.equalsIgnoreCase("SPEED")) {
-
-			double fastestSpeed = 0;
-			for (Jet jet : jets) {
-
-				if (jet != null && jet.getSpeed() > fastestSpeed) {
-					fastestSpeed = jet.getSpeed();
-					certainJet = jet;
-				}
+			if (jet != null && jet.getSpeed() > fastestSpeed) {
+				fastestSpeed = jet.getSpeed();
+				certainJet = jet;
 			}
+		}
+		return certainJet;
+	}
 
-		} else if (target.equalsIgnoreCase("RANGE")) {
+	public Jet findLongestRangeJet() {
+		Jet certainJet = null;
+		int largestRange = 0;
+		for (Jet jet : jets) {
 
-			int largestRange = 0;
-			for (Jet jet : jets) {
-
-				if (jet != null && jet.getRange() > largestRange) {
-					largestRange = jet.getRange();
-					certainJet = jet;
-				}
+			if (jet != null && jet.getRange() > largestRange) {
+				largestRange = jet.getRange();
+				certainJet = jet;
 			}
+		}
+		return certainJet;
+	}
 
-		} else if (target.equalsIgnoreCase("PRICE")) {
+	public Jet findMostExpensiveJet() {
+		Jet certainJet = null;
+		long mostExpensive = 0;
+		for (Jet jet : jets) {
 
-			long mostExpensive = 0;
-			for (Jet jet : jets) {
-
-				if (jet != null && jet.getPrice() > mostExpensive) {
-					mostExpensive = jet.getPrice();
-					certainJet = jet;
-				}
+			if (jet != null && jet.getPrice() > mostExpensive) {
+				mostExpensive = jet.getPrice();
+				certainJet = jet;
 			}
 		}
 		return certainJet;
@@ -193,7 +170,7 @@ public class AirField implements Damagable{
 		printSpecialBorder(SWORDS_CHAR, 40);
 		for (Jet jet : jets) {
 			if (jet != null && jet.getClass() == new FighterJet().getClass()) {
-				((FighterJet) jet).fight();
+				((CombatReady) jet).fight();
 				System.out.println();
 			}
 		}
@@ -211,15 +188,6 @@ public class AirField implements Damagable{
 			border += lining + " ";
 		}
 		System.out.println(border);
-	}
-
-	@Override
-	public void destroy() {
-		isDestroyed = true;
-	}
-	
-	public void takeDamage(int damage) {
-		defense = calculateDamage(defense, damage);
 	}
 
 }

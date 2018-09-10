@@ -27,10 +27,14 @@ public abstract class Jet {
 	}
 
 	// toString
+	
 	@Override
 	public String toString() {
-		return pilot.toString() + "\n[model: " + model + " speed: " + speed + " range: " + range + " price: " + price + "]";
+		return pilot.toString() + "\n[model: " + model + ", speed: " + speed + ", range: " + range + ", price: " + price + "]";
 	}
+	
+	
+
 
 	// setters and getters
 	public String getModel() {

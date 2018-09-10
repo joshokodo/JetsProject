@@ -1,12 +1,13 @@
 ## Jets Project
 
-### week 2 homework for Skill Distillery
+### WEEK 2 Homework for Skill Distillery
 
 This program displays and manages a fleet of Jet objects.
 
 Main homework files can be found in com.skilldistillery.jets.
 
-Extra game feature coming soon found in com.skilldistillery.jets.game
+Originally had plans to make a game feature. will make a separate project for game.
+
 
 ### Program Overview
 
@@ -23,5 +24,4 @@ Interfaces and Inheritance
 ### Lessons Learned
 
 The use of TDD and a finished UML would have sped up the process and I might have 
-been able to finish the extra feature sooner. Work in progress with plans for finishing
-it for practice. 
+been able to add extra features. 

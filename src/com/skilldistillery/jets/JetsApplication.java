@@ -2,7 +2,6 @@ package com.skilldistillery.jets;
 
 import java.util.Scanner;
 
-import com.skilldistillery.jets.game.GameManager;
 
 public class JetsApplication implements Menu{
 
@@ -36,7 +35,7 @@ public class JetsApplication implements Menu{
 		int choice = 0;
 
 		while (true) {
-			choice = getUserChoice(getUserMenu(), 9);
+			choice = getUserChoice(getUserMenu(), 8);
 			System.out.println();
 			performOption(choice);
 
@@ -66,11 +65,6 @@ public class JetsApplication implements Menu{
 		returnValue += SPACE;
 		returnValue += getMenuOption("8. Add a jet to Fleet");
 		returnValue += SPACE;
-		
-		//game option coming soon.
-//		returnValue += getMenuOption("9. Would you like to play a game?");
-//		returnValue += SPACE;
-		
 		returnValue += getMenuOption("0. Quit");
 		returnValue += SPACE;
 		returnValue += MENU_BORDER;
@@ -148,18 +142,18 @@ public class JetsApplication implements Menu{
 
 		case 3:
 			System.out.println("Fastest jet is...");
-			System.out.println(fleet.findCertainJet("SPEED"));
+			System.out.println(fleet.findFastestJet());
 
 			break;
 
 		case 4:
 			System.out.println("Jet with the longest range is...");
-			System.out.println(fleet.findCertainJet("RANGE"));
+			System.out.println(fleet.findLongestRangeJet());
 			break;
 
 		case 5:
 			System.out.println("Most expensive jet... ");
-			System.out.println(fleet.findCertainJet("PRICE"));
+			System.out.println(fleet.findMostExpensiveJet());
 			break;
 
 		case 6:
@@ -172,11 +166,6 @@ public class JetsApplication implements Menu{
 
 		case 8:
 			addCustomJet();
-			break;
-
-		case 9:
-			GameManager game = new GameManager();
-			game.runGame();
 			break;
 
 		default:

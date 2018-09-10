@@ -8,7 +8,6 @@ public interface Menu {
 		final String MENU_BORDER = "****************************************\n";
 		final String SPACE = "*                                      *\n";
 		
-		 String getUserMenu();
 		 
 		// returns a formatted menu option line
 		default String getMenuOption(String option) {
