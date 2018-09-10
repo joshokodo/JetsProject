@@ -6,10 +6,7 @@ import com.skilldistillery.jets.game.GameManager;
 
 public class JetsApplication implements Menu{
 
-	// constant strings for menu
-	private final String MENU_BORDER = "****************************************\n";
-	private final String SPACE = "*                                      *\n";
-	
+	// constant string for add custom jet menu                             
 	private final String CUSTOM_JET_MENU =  "$$$$$$$$$$$$$$$$$$$$$$$$\n" 
 											+ "$  1. Fighter Jet      $\n"
 											+ "$  2. Cargo Plane      $\n"

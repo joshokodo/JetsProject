@@ -18,10 +18,10 @@ to be added to the AirField object.
 
 
 ### Technologies / Techniques Practiced
-Interfaces and Inheritence
+Interfaces and Inheritance
 
 ### Lessons Learned
 
-the use of TDD and a finished UML would have sped up the process and I might have 
-been able to finish the extra feature sooner. work in progress with plans for finishing
+The use of TDD and a finished UML would have sped up the process and I might have 
+been able to finish the extra feature sooner. Work in progress with plans for finishing
 it for practice. 

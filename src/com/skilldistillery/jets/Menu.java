@@ -39,7 +39,7 @@ public interface Menu {
 		// prompts users with custom menu(arg 1) of choices
 		// between a custom range(arg 2) returns choice in the form of an int
 		default int getUserChoice(String prompt, int optionRange) {
-			int choice = 0;
+			int choice = -1;
 			boolean validChoice = false;
 
 			while (true) {
@@ -48,7 +48,7 @@ public interface Menu {
 				System.out.print(prompt);
 				choice = getIntInput();
 
-				validChoice = choice >= 1 && choice <= optionRange; // resets loop condition
+				validChoice = choice >= 0 && choice <= optionRange; // resets loop condition
 
 				if (!validChoice) {
 					System.out.println(" Not an available option. try again.");

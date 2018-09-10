@@ -8,10 +8,11 @@ public class CargoPlane extends Jet implements CargoCarrier {
 	}
 
 	public CargoPlane(String model, double speed, int range, long price) {
+		
 		super(model, speed, range, price);
 	}
 
-	// toString
+	// toStringsss
 	@Override
 	public String toString() {
 		return this.getClass().getSimpleName() + "\n" + super.toString();
