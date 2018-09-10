@@ -1,22 +1,48 @@
 package com.skilldistillery.jets;
 
-public class AirField {
+import com.skilldistillery.jets.game.Damagable;
+
+public class AirField implements Damagable{
 
 	private Jet[] jets;
+	private Pilot[] pilots;
+	private int defense;
+	private boolean isDestroyed;
 	
+	{
+		isDestroyed = false;
+		defense = 100;
+	}
+	
+
 	// special chars for borders
 	private final char AIRPLANE_CHAR = '\u2708';
-	private final char PACKAGE_CHAR = '\u2709'; 
+	private final char PACKAGE_CHAR = '\u2709';
 	private final char SWORDS_CHAR = '\u2694';
-	
 
 	// constructors
 	public AirField() {
 		jets = new Jet[10];
+		pilots = new Pilot[10];
+		
+	}
+
+	public AirField(int start) {
+		this();
+		for (int i = 0; i < jets.length && i < start; i++) {
+
+			if (i <= (start / 2)) {
+				jets[i] = new FighterJet();
+
+			} else {
+				jets[i] = new CargoPlane();
+			}
+			pilots[i] = jets[i].getPilot();
+		}
 	}
 
 	public AirField(Jet[] jets) {
-		super();
+		this();
 		this.jets = jets;
 	}
 
@@ -33,6 +59,26 @@ public class AirField {
 		this.jets = jets;
 	}
 
+	public int getDefense() {
+		return defense;
+	}
+
+	public void setDefense(int defense) {
+		this.defense = defense;
+	}
+
+	public Pilot[] getPilots() {
+		return pilots;
+	}
+
+	public void setPilots(Pilot[] pilots) {
+		this.pilots = pilots;
+	}
+
+	
+
+	
+	// other methods
 	public void addJet(Jet jet) {
 
 		for (int i = 0; i < jets.length; i++) {
@@ -41,9 +87,18 @@ public class AirField {
 				break;
 			}
 		}
+		addPilot(jet.getPilot());
 	}
 
-	// other methods
+	public void addPilot(Pilot pilot) {
+
+		for (int i = 0; i < pilots.length; i++) {
+			if (pilots[i] == null) {
+				pilots[i] = pilot;
+				break;
+			}
+		}
+	}
 	
 	// prints out all jets info and empty slots in the
 	// jets array
@@ -122,21 +177,22 @@ public class AirField {
 		}
 		return certainJet;
 	}
-	
+
 	public void loadAllTheCargo() {
 		printSpecialBorder(PACKAGE_CHAR, 40);
 		for (Jet jet : jets) {
-			if(jet != null && jet.getClass() == new CargoPlane().getClass()) {
+			if (jet != null && jet.getClass() == new CargoPlane().getClass()) {
 				((CargoCarrier) jet).loadCargo();
 				System.out.println();
 			}
 		}
 		printSpecialBorder(PACKAGE_CHAR, 40);
 	}
+
 	public void fightAllTheFights() {
 		printSpecialBorder(SWORDS_CHAR, 40);
 		for (Jet jet : jets) {
-			if(jet != null && jet.getClass() == new FighterJet().getClass()) {
+			if (jet != null && jet.getClass() == new FighterJet().getClass()) {
 				((FighterJet) jet).fight();
 				System.out.println();
 			}
@@ -145,7 +201,7 @@ public class AirField {
 	}
 
 	// helper methods
-	
+
 	// takes in a char for arg 1 and prints it on a line
 	// with spaces between the amount passed for arg 2
 	private void printSpecialBorder(char lining, int length) {
@@ -155,6 +211,15 @@ public class AirField {
 			border += lining + " ";
 		}
 		System.out.println(border);
+	}
+
+	@Override
+	public void destroy() {
+		isDestroyed = true;
+	}
+	
+	public void takeDamage(int damage) {
+		defense = calculateDamage(defense, damage);
 	}
 
 }

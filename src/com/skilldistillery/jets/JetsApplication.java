@@ -2,7 +2,9 @@ package com.skilldistillery.jets;
 
 import java.util.Scanner;
 
-public class JetsApplication {
+import com.skilldistillery.jets.game.GameManager;
+
+public class JetsApplication implements Menu{
 
 	// constant strings for menu
 	private final String MENU_BORDER = "****************************************\n";
@@ -16,7 +18,7 @@ public class JetsApplication {
 											+ " Choose type of Plane to build: ";
 	
 	private AirField fleet;
-	private Scanner keyboard;
+	
 
 	public static void main(String[] args) {
 
@@ -26,14 +28,9 @@ public class JetsApplication {
 
 	// constructor
 	private JetsApplication() {
-		fleet = new AirField();
-		keyboard = new Scanner(System.in);
+		fleet = new AirField(5);
+	
 
-		fleet.addJet(new FighterJet("F-22", 500.0, 3000, 375_000_000));
-		fleet.addJet(new FighterJet("F-35", 300.0, 2500, 125_100_000));
-		fleet.addJet(new FighterJet("A -10", 425.0, 2000, 125_000_000));
-		fleet.addJet(new CargoPlane("AN-225", 200.0, 4000, 9_700_000));
-		fleet.addJet(new CargoPlane("AN-124", 250.0, 5000, 25_000_000));
 
 	}
 
@@ -53,7 +50,7 @@ public class JetsApplication {
 
 	// alternate version of displayUserMenu that returns a string of menu
 	// use as arg for getUserChoice method
-	private String getUserMenu() {
+	public String getUserMenu() {
 		String returnValue = MENU_BORDER;
 		returnValue += SPACE;
 		returnValue += getMenuOption("1. List fleet");
@@ -72,7 +69,12 @@ public class JetsApplication {
 		returnValue += SPACE;
 		returnValue += getMenuOption("8. Add a jet to Fleet");
 		returnValue += SPACE;
-		returnValue += getMenuOption("9. Quit");
+		
+		//game option coming soon.
+//		returnValue += getMenuOption("9. Would you like to play a game?");
+//		returnValue += SPACE;
+		
+		returnValue += getMenuOption("0. Quit");
 		returnValue += SPACE;
 		returnValue += MENU_BORDER;
 		returnValue += " Choose option from menu: ";
@@ -80,37 +82,8 @@ public class JetsApplication {
 		return returnValue;
 	}
 
-	// returns a formatted menu option line
-	private String getMenuOption(String option) {
-		String returnValue = String.format("* %-37s*%n", option);
-		return returnValue;
-	}
 
-	// prompts users with custom menu(arg 1) of choices
-	// between a custom range(arg 2) returns choice in the form of an int
-	private int getUserChoice(String prompt, int optionRange) {
-		int choice = 0;
-		boolean validChoice = false;
-
-		while (true) {
-			System.out.println();
-
-			System.out.print(prompt);
-			choice = getIntInput();
-
-			validChoice = choice >= 1 && choice <= optionRange; // resets loop condition
-
-			if (!validChoice) {
-				System.out.println(" Not an available option. try again.");
-				continue;
-			} else {
-				break;
-			}
-		}
-
-		return choice;
-
-	}
+	
 
 	// prompts user for what type of jet to build
 	// then asks for all of its fields, builds the
@@ -164,6 +137,10 @@ public class JetsApplication {
 	private void performOption(int choice) {
 
 		switch (choice) {
+		case 0:
+			endProgram();
+			break;
+			
 		case 1:
 			fleet.listJets();
 			break;
@@ -201,7 +178,8 @@ public class JetsApplication {
 			break;
 
 		case 9:
-			endProgram();
+			GameManager game = new GameManager();
+			game.runGame();
 			break;
 
 		default:
@@ -211,69 +189,12 @@ public class JetsApplication {
 	}
 
 	// thanks user for using app, closes scanner and exits the app
-	private void endProgram() {
+	public void endProgram() {
 		System.out.println("Thanks for using the app. have a great day");
-		keyboard.close();
+		closeKeyboard();
 		System.exit(0);
 	}
 
-	// scanner input methods
-	private int getIntInput() {
-		int num = -1;
-
-		while (true) {
-			String stringChoice = keyboard.next();
-			keyboard.nextLine(); // to get rid of any trailing texts
-
-			try {
-				num = Integer.parseInt(stringChoice);
-			} catch (NumberFormatException e) {
-				System.out.println(" Not a numeric choice. try again.");
-				continue;
-			}
-			break;
-		}
-		return num;
-	}
-
-	private String getStringInput() {
-		return keyboard.nextLine();
-	}
-
-	private double getDoubleInput() {
-		double num = -1;
-
-		while (true) {
-			String stringChoice = keyboard.next();
-			keyboard.nextLine(); // to get rid of any trailing texts
-
-			try {
-				num = Double.parseDouble(stringChoice);
-			} catch (NumberFormatException e) {
-				System.out.println(" Not a numeric choice. try again.");
-				continue;
-			}
-			break;
-		}
-		return num;
-	}
-
-	private long getLongInput() {
-		long num = -1;
-
-		while (true) {
-			String stringChoice = keyboard.next();
-			keyboard.nextLine(); // to get rid of any trailing texts
-
-			try {
-				num = Long.parseLong(stringChoice);
-			} catch (NumberFormatException e) {
-				System.out.println(" Not a valid choice. try again.");
-				continue;
-			}
-			break;
-		}
-		return num;
-	}
+	
 
 }

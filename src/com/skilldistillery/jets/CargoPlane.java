@@ -4,6 +4,7 @@ public class CargoPlane extends Jet implements CargoCarrier {
 
 	// constructors
 	public CargoPlane() {
+		super();
 	}
 
 	public CargoPlane(String model, double speed, int range, long price) {
@@ -13,7 +14,7 @@ public class CargoPlane extends Jet implements CargoCarrier {
 	// toString
 	@Override
 	public String toString() {
-		return this.getClass().getSimpleName() + super.toString();
+		return this.getClass().getSimpleName() + "\n" + super.toString();
 	}
 
 	// other methods

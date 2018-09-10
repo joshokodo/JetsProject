@@ -6,9 +6,15 @@ public abstract class Jet {
 	private double speed; // mph
 	private int range;
 	private long price;
+	private Pilot pilot;
 
 	// constructors
 	public Jet() {
+		model = setRandomModel();
+		speed = getRandomInt(200, 700);
+		range = getRandomInt(1000, 5000);
+		price = getRandomLong(100000000, 500000000);
+		pilot = new Pilot();
 	}
 
 	public Jet(String model, double speed, int range, long price) {
@@ -22,44 +28,7 @@ public abstract class Jet {
 	// toString
 	@Override
 	public String toString() {
-		return " [model: " + model + " speed: " + speed + " range: " + range + " price: " + price + "]";
-	}
-
-	// equals and hashcode
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((model == null) ? 0 : model.hashCode());
-		result = prime * result + (int) (price ^ (price >>> 32));
-		result = prime * result + range;
-		long temp;
-		temp = Double.doubleToLongBits(speed);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Jet other = (Jet) obj;
-		if (model == null) {
-			if (other.model != null)
-				return false;
-		} else if (!model.equals(other.model))
-			return false;
-		if (price != other.price)
-			return false;
-		if (range != other.range)
-			return false;
-		if (Double.doubleToLongBits(speed) != Double.doubleToLongBits(other.speed))
-			return false;
-		return true;
+		return pilot.toString() + "\n[model: " + model + " speed: " + speed + " range: " + range + " price: " + price + "]";
 	}
 
 	// setters and getters
@@ -94,6 +63,15 @@ public abstract class Jet {
 	public void setPrice(long price) {
 		this.price = price;
 	}
+	
+
+	public Pilot getPilot() {
+		return pilot;
+	}
+
+	public void setPilot(Pilot pilot) {
+		this.pilot = pilot;
+	}
 
 	// other methods
 	public void fly() {
@@ -106,5 +84,41 @@ public abstract class Jet {
 	public double getSpeedInMach() {
 		return speed * 0.001303;
 	}
+
+	
+
+	public void fight(FighterJet targetJet) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public String setRandomModel() {
+		char[] letters = new char[26];
+		int[] numbers = new int[26];
+		
+		for(int i = 0; i < letters.length; i++) {
+			letters[i] = (char) ('A' + i);
+			numbers[i] = i + 1;
+		}
+		
+		int winner1 = getRandomInt(0, 25);
+		int winner2 = getRandomInt(0, 25);
+		
+		return letters[winner1] + "-" + numbers[winner2];
+	}
+	
+	public int getRandomInt(int min, int max){ 
+		return ((int) (Math.random()*(max - min))) + min; 
+	}
+	public double getRandomDouble(double min, double max){ 
+		return  (Math.random()*(max - min)) + min; 
+	}
+	
+	public long getRandomLong(long min, long max){ 
+		return  ((long)(Math.random()*(max - min))) + min; 
+	}
+	
+
+	
 
 }
