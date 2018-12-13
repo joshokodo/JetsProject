@@ -1,4 +1,4 @@
-package com.skilldistillery.jets;
+package com.skilldistillery.jets.interfaces;
 
 public interface CargoCarrier {
 

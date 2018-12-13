@@ -1,4 +1,7 @@
-package com.skilldistillery.jets;
+package com.skilldistillery.jets.entities;
+
+import com.skilldistillery.jets.interfaces.CargoCarrier;
+import com.skilldistillery.jets.interfaces.CombatReady;
 
 public class AirField {
 
@@ -158,7 +161,7 @@ public class AirField {
 	public void loadAllTheCargo() {
 		printSpecialBorder(PACKAGE_CHAR, 40);
 		for (Jet jet : jets) {
-			if (jet != null && jet.getClass() == new CargoPlane().getClass()) {
+			if (jet != null && jet instanceof CargoCarrier) {
 				((CargoCarrier) jet).loadCargo();
 				System.out.println();
 			}
@@ -169,7 +172,7 @@ public class AirField {
 	public void fightAllTheFights() {
 		printSpecialBorder(SWORDS_CHAR, 40);
 		for (Jet jet : jets) {
-			if (jet != null && jet.getClass() == new FighterJet().getClass()) {
+			if (jet != null && jet instanceof CombatReady) {
 				((CombatReady) jet).fight();
 				System.out.println();
 			}

@@ -1,4 +1,6 @@
-package com.skilldistillery.jets;
+package com.skilldistillery.jets.entities;
+
+import com.skilldistillery.jets.interfaces.CargoCarrier;
 
 public class CargoPlane extends Jet implements CargoCarrier {
 

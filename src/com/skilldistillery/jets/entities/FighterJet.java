@@ -1,4 +1,6 @@
-package com.skilldistillery.jets;
+package com.skilldistillery.jets.entities;
+
+import com.skilldistillery.jets.interfaces.CombatReady;
 
 public class FighterJet extends Jet implements CombatReady {
 
@@ -31,4 +33,14 @@ public class FighterJet extends Jet implements CombatReady {
 
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/// [j]
 }
