@@ -1,5 +1,5 @@
 ## Week 2 Homework: Jets Project
-
+![Alt text](jetsimg.png "Front Page")
 ### Overview
 This program was assigned to test and practice our knowledge on the 4 pillars of object oriented programming using "jet" objects with different characteristics. By using inheritance and polymorphism, we can see that sub classes of a jet can behave differently.
 
