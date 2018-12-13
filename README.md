@@ -1,13 +1,3 @@
-
-
-### Technologies / Techniques Practiced
-Interfaces and Inheritance
-
-### Lessons Learned
-
-The use of TDD and a finished UML would have organized the process and I might have 
-been able to add extra features. 
-
 ## Week 2 Homework: Jets Project
 
 ### Overview
